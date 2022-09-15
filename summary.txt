@@ -1,0 +1,125 @@
+Upgrade pip
+_____________________
+python -m pip install --upgrade pip
+
+
+Virtual Environment Utils
+
+DEPENDENCIES
+_____________________
+
+0.STANDARD REQUIREMENTS.TXT FILE FOR EXAMPLE
+tensorflow==2.3.1
+uvicorn==0.12.2
+fastapi==0.63.0
+
+1.A ONE BY ONE
+PIP INSTALL PACKAGE
+
+1.B WITH ALL DEPENDENCIES
+PIP INSTALL PACKAGE[all]
+
+1.1 UPGRADE ONE BY ONE
+pip install -U PackageName
+
+
+1.1.1 INSTALL ALL PACKAGES
+pip install -r requirements.txt
+
+1.1.2 UPGRADE INSTALLED PACKAGES
+pip install --upgrade -r requirements.txt
+
+
+2. UTILS FOR FASTAPI
+pip install fastapi
+pip install "uvicorn[standard]"
+
+3.list of the Python modules installed in your environment
+pip freeze 
+
+4.OUTDATES PACKAGES
+pip list --outdated
+
+5.CHECK MISSING DEPENDENCIES
+python -m pip check
+
+Mac
+_____________________
+1.CREATE
+python3 -m venv name
+
+2.1 ACTIVATE
+cd name/bin/
+source activate
+
+2.2 ACTIVATE SHORTCUT
+. name/bin/activate
+
+3. DEACTIVATE ENV
+deactivate
+
+
+Windows
+_____________________
+1.CREATE
+python -m venv name
+
+2.1 ACTIVATE
+cd name/Scripts/
+activate
+
+2.2 ACTIVATE SHORTCUT
+. name/Scripts/activate
+
+3. DEACTIVATE ENV
+deactivate
+
+
+RUN FASTAPI WITH UVICORN
+_________________________
+name is the container of FASTAPI instance
+
+
+uvicorn name:app --reload -p 8081
+
+
+EXAMPLE FOR VIEW DATA OF OPENAPI.JSON
+_____________________________________
+http://127.0.0.1:8000/openapi.json
+
+
+DOCS FASTAPI
+_________________________
+http://127.0.0.1:8000/docs
+
+
+FAST API HTTP REQUEST METHODS
+_____________________________________
+IN SUMMARY THE BELOW IS PART OF CRUD
+
+
+GET  - RETRIEVES THE DATA(READ METHOD)
+POST - SUBMIT DATA(CREATE METHOD)
+PUT - UPDATE ENTIRE RESOURCE
+PATCH - UPDATE PART OF RESOURCE
+DELETE - DELETE RESOURCE
+
+
+
+FAST API REQUEST METHODS(CONT)
+_____________________________________
+
+TRACE - PERFORMS A MSG LOOP-BACK TO THE TARGET
+OPTIONS - COMMUNICATION OPTIONS TO THE TARGET
+CONNECT - CREATE THE TUNNEL TO THE SERVER 
+
+
+FAST API MOST COMMON RESPONSE STATUS CODE
+_____________________________________
+
+1XX - INFORMATIONAL: REQUEST PROCESSING
+2XX - SUCESS: REQUEST SUCCESSFULLY COMPLETED
+3XX - REDIRECTION: FURTHER ACTION MUST BE COMPLETE
+4XX - CLIENT ERROR : ERROR CAUSED BY CLIENT REQUEST
+5XX - SERVER ERRORS : AN ERROR HAS OCCURRED ON THE SERVER
+
