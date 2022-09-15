@@ -1,3 +1,4 @@
+from operator import length_hint
 from fastapi import FastAPI
 from enum import Enum
 
@@ -50,27 +51,33 @@ async def update_book(book_name:str,book_title:str,book_author:str):
 
 @app.post("/add")
 async def create_book(book_title:str,book_author:str):
-
+  
+    global BOOKS
     index=1
     if len(BOOKS)>0:
+        
         for book in BOOKS:
             idx=int(book.split('_')[-1])
             #Resolve the gaps betweens elements
-            if (idx >=index):
-                index=idx
+            if (index-idx):
+                BOOKS[f'books_{index}']={'title':book_title, 'author':book_author}
+                BOOKS=dict(sorted(BOOKS.items(),key=lambda x:x[0]))
+
+                return BOOKS[f'books_{index}']
             else:
-                index=index+1
-                BOOKS[f'book_{index}']={'title':book_title, 'author':book_author}
-                return BOOKS[f'book_{index}']
+                index+=1
             
-    BOOKS[f'book_{index+1}']={'title':book_title, 'author':book_author}
-    return BOOKS[f'book_{index+1}']
+            # IN ORDER 
+        BOOKS[f'books_{index}']={'title':book_title, 'author':book_author}
+        BOOKS=dict(sorted(BOOKS.items(),key=lambda x:x[0]))
+        return BOOKS[f'books_{index}']
 
 
 # GET METHODS BELOW
 
 @app.get("/")
 async def read_all_books():
+
     return BOOKS
 
 

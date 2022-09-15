@@ -80,7 +80,7 @@ _________________________
 name is the container of FASTAPI instance
 
 
-uvicorn name:app --reload -p 8081
+uvicorn name:app --reload --port 8081
 
 
 EXAMPLE FOR VIEW DATA OF OPENAPI.JSON
