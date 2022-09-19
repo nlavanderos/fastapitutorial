@@ -11,4 +11,3 @@ def filtro(*args):
     return lambda x:x if (x%2==0) else None
 
 print(filtro([1,2,3,4,5,6]))
-

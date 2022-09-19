@@ -31,11 +31,11 @@ class DirectionName(str, Enum):
 @app.delete("/delete_book/{book_name}")
 async def delete(book_name: str | None = None):
     '''DELETE THE BOOK OF THE BOOKS LIST'''
-    if book_name:
+    if book_name.split('_')[0]=='books':
         del BOOKS[book_name]
         return f'Book {book_name} is deleted'
-
-    return f'{book_name} is deleted'
+    else:
+        return f'{book_name} is not in the format'
 
 
 # PUT REQUEST BELOW
@@ -119,7 +119,8 @@ async def get_title_book(book_name_title: str):
     return BOOKS[book_name_title]['title']
 
 
-@app.get("/books/{book_name}")
+# query params get
+@app.get("/readbook/")
 async def read_book(book_name: str):
     ''' GET DATA OF THE BOOK'''
     return BOOKS[book_name]
