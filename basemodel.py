@@ -1,4 +1,3 @@
-from sys import prefix
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from uuid import UUID, uuid1
@@ -21,13 +20,16 @@ class Book(BaseModel):
     class Config:
         schema_extra={
             "example":{
-                "id":str(uuid1()),
+            "id":str(uuid1()),
             "title":"Naruto",
             "author":"Kishimoto",
-            "desc":"Ninja world",
+            "description":"Ninja world",
             "ratio":66
             }
         }
+
+# uuid1 is generated my mac addres
+# uuid4 is random 
 
 def create_book_noapi():
     new_book=Book(id=str(uuid1()),title="Description of the book",author="asas",description="asdsad",ratio=12)
@@ -44,6 +46,7 @@ def create_book_noapi():
 async def create_book(book: Book):
  
     BOOKS.append(book)
+    return book
 
 
 @app.get('/')
@@ -70,9 +73,8 @@ async def get_info_by_uuid(by_uuid:UUID):
 @app.delete("/book/{book_name}")
 async def delete(book_id: UUID | None = None):
     '''DELETE THE BOOK OF THE BOOKS LIST'''
-    counter=0
+
     for x in BOOKS:
-        counter+=1
         if(x.id==book_id):
             del x
             return f'Book_id {book_id} is deleted'

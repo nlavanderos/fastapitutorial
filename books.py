@@ -63,17 +63,27 @@ async def create_book(book_title: str, book_author: str):
             idx = int(book.split('_')[-1])
             # Resolve the gaps betweens elements
             if (index-idx):
-                BOOKS[f'books_{index}'] = {
-                    'title': book_title, 'author': book_author}
-                BOOKS = dict(sorted(BOOKS.items(), key=lambda x: x[0]))
+
+                # METHOD 1 IS HARD TO CODE BUT FASTER IN TIME COMPLEX
+                content= (f'books_{index}',{'title': book_title, 'author': book_author})
+                pos = list(BOOKS.keys()).index(f'books_{index-1}')
+                items = list(BOOKS.items())
+                items.insert(pos+1,content)
+                BOOKS=dict((x, y) for x, y in items)
+
+
+                # METHOD 2 IS FASTER TO CODE BUT LOW IN TIME COMPLEX
+                # BOOKS[f'books_{index}'] = {'title': book_title, 'author': book_author}
+                # BOOKS = dict(sorted(BOOKS.items(), key=lambda x: x[0]))
+
 
                 return BOOKS[f'books_{index}']
             else:
                 index += 1
 
-            # IN ORDER
+        # IN ORDER
         BOOKS[f'books_{index}'] = {'title': book_title, 'author': book_author}
-        BOOKS = dict(sorted(BOOKS.items(), key=lambda x: x[0]))
+        # BOOKS = dict(sorted(BOOKS.items(), key=lambda x: x[0]))
         return BOOKS[f'books_{index}']
 
 

@@ -16,6 +16,9 @@ fastapi==0.63.0
 1.A ONE BY ONE
 PIP INSTALL PACKAGE
 
+python3 -m pip install 'pandas<1.2'
+python3 -m pip install 'pandas>0.25.3'
+
 1.B WITH ALL DEPENDENCIES
 PIP INSTALL PACKAGE[all]
 
@@ -35,7 +38,12 @@ pip install fastapi
 pip install "uvicorn[standard]"
 
 3.list of the Python modules installed in your environment
-pip freeze 
+pip list
+
+3.1 OUTPUT THE VALUES TO TXT
+pip freeze
+pip freeze > requirements.txt
+
 
 4.OUTDATES PACKAGES
 pip list --outdated
@@ -54,6 +62,7 @@ source activate
 
 2.2 ACTIVATE SHORTCUT
 . name/bin/activate
+cd ./fastapimac/bin/ && source activate
 
 3. DEACTIVATE ENV
 deactivate

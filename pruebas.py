@@ -12,3 +12,6 @@
 
 # BOOKS=dict(sorted(BOOKS.items(),key=lambda x:x[0]))
 # print(BOOKS)
+content={}
+content[f'books_{1}']= {'title': 'book_title', 'author': 'fgdf'}
+print(content)
