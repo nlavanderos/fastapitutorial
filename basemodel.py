@@ -1,11 +1,34 @@
-from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field, BaseSettings
 from uuid import UUID, uuid1
-
+from starlette.responses import JSONResponse
+from requests import Request
+import uvicorn
 
 BOOKS = []
 
-app = FastAPI()
+#DEACTIVATE DOCUMENTATION (REDOC AND SWAGGER UI)
+class Settings(BaseSettings):
+    docs_url: str = ""
+    redoc_url:str=""
+
+
+settings = Settings()
+
+app = FastAPI(redoc_url=settings.docs_url,docs_url=settings.docs_url)
+
+
+
+class NegativeNumberException(Exception):
+    def __init__(self,books_to_return):
+        self.books_to_return = books_to_return
+
+@app.exception_handler(NegativeNumberException)
+def negative_number_exception_handler(request: Request ,exception:NegativeNumberException):
+
+    return JSONResponse(status_code=418,
+    content={"message":f"Porque necesitas {exception.books_to_return} libros..."
+                        f"Estas bien???"})
 
 
 class Book(BaseModel):
@@ -51,6 +74,9 @@ async def create_book(book: Book):
 
 @app.get('/')
 async def get_books(books_to_return:int | None):
+    if   books_to_return<0:
+        raise NegativeNumberException(books_to_return=books_to_return)
+
     if len(BOOKS) < 1:
         create_book_noapi()
     if len(BOOKS) >= books_to_return>0:
@@ -79,7 +105,8 @@ async def delete(book_id: UUID | None = None):
             del x
             return f'Book_id {book_id} is deleted'
 
-    return f'{book_id} is not in the format'
+    raise raise_error_exception()
+    # return f'{book_id} is not in the format'
 
 
 
@@ -94,3 +121,12 @@ async def update_book(book_upd_id: UUID,book:Book):
             return BOOKS[cont]
         cont+=1
     return f'BOOK ID {book_upd_id} NOT FOUND'
+
+
+def raise_error_exception():
+    return HTTPException(status_code=404,detail="uid not found",headers={"X-Header-Error":"not found"})
+
+
+#SCRIPT TO RUN UVICORN MORE EASIER WITH python uvicorn 
+if __name__ == "__main__":
+    uvicorn.run(f"{__name__}:app", host="localhost", reload=True, port=8081)
