@@ -1,8 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status, Request,Form,Header
 from pydantic import BaseModel, Field, BaseSettings
 from uuid import UUID, uuid1
 from starlette.responses import JSONResponse
-from requests import Request
+# from requests import Request
 import uvicorn
 
 BOOKS = []
@@ -15,7 +15,9 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-app = FastAPI(redoc_url=settings.docs_url,docs_url=settings.docs_url)
+app = FastAPI(redoc_url=settings.docs_url,
+# docs_url=settings.docs_url
+)
 
 
 
@@ -51,6 +53,12 @@ class Book(BaseModel):
             }
         }
 
+class BookNoRating(BaseModel):
+    id:UUID
+    title:str=Field(min_length=1)
+    author:str|None=Field(min_length=10,max_length=50)
+    description: str
+
 # uuid1 is generated my mac addres
 # uuid4 is random 
 
@@ -64,8 +72,21 @@ def create_book_noapi():
     BOOKS.append(new_book3)
 
 
+# CAN USE FORM() INSTEAD OF HEAD()...
+@app.post("/books/login",status_code=status.HTTP_200_OK)
+async def login(book_id:int,password:str|None=Header(None),user:str|None=Header(None)):  
+    if user=="admin" and password=="123456":
+        return BOOKS[book_id]
+    return "Invalid credentials"
 
-@app.post('/')
+
+@app.get("/header")
+async def header(x_token:list[str]|None=Header(default=None)):
+    return {"X-Token values":x_token}
+
+
+
+@app.post('/',status_code=status.HTTP_201_CREATED)
 async def create_book(book: Book):
  
     BOOKS.append(book)
@@ -89,14 +110,14 @@ async def get_books(books_to_return:int | None):
     return BOOKS
 
 
-@app.get("/book/{by_uuid}")
+@app.get("/book/{by_uuid}",response_model=BookNoRating)
 async def get_info_by_uuid(by_uuid:UUID):
     for x in BOOKS:
         if(x.id==by_uuid):
             return x
 
 
-@app.delete("/book/{book_name}")
+@app.delete("/book/{book_id}")
 async def delete(book_id: UUID | None = None):
     '''DELETE THE BOOK OF THE BOOKS LIST'''
 

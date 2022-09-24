@@ -132,3 +132,46 @@ _____________________________________
 4XX - CLIENT ERROR : ERROR CAUSED BY CLIENT REQUEST
 5XX - SERVER ERRORS : AN ERROR HAS OCCURRED ON THE SERVER
 
+
+
+
+REFRESH OF SQL
+
+**ADD VALUES
+
+INSERT INTO tablename(variables,...,variablesn)
+VALUES (values,...,valuesn);
+
+**SHOW VALUES
+
+SELECT * FROM tablename;
+
+SELECT title FROM tablename;
+
+**QUERIES
+
+SELECT * FROM tablename WHERE id=2;
+
+UPDATE tablename SET complete=True WHERE id=5
+
+DELETE FROM tablename WHERE id=2
+
+
+
+
+
+run the app after do the following command
+
+sqlite3 todos.db 
+
+LIST THE SCHEMAS OF THE DB
+
+.schema
+
+
+OUTUP STYLE OF SQLITE
+
+.mode column
+.mode markdown
+.mode box
+.mode table
