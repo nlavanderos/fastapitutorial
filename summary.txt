@@ -175,3 +175,8 @@ OUTUP STYLE OF SQLITE
 .mode markdown
 .mode box
 .mode table
+
+
+OUTPUT SCRIPT.SQL WITH DATA OF THE DATABASE
+
+sqlite3 name.db .dump > name.sql
