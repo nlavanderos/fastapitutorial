@@ -180,3 +180,14 @@ OUTUP STYLE OF SQLITE
 OUTPUT SCRIPT.SQL WITH DATA OF THE DATABASE
 
 sqlite3 name.db .dump > name.sql
+
+
+
+
+MIGRATIONS
+
+alembic init <foldername>
+alembic revision -m <message>
+alembic upgrade <revision #>
+alembic downgrade <revision #>
+

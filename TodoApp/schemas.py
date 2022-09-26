@@ -26,3 +26,9 @@ class CreateUser(OurBaseModel):
     first_name:str
     last_name:str
     password:str
+
+
+class UserVerification(OurBaseModel):
+    username:str
+    password:str
+    new_password:str

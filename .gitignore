@@ -1,5 +1,5 @@
 #ignore pycache
 __pycache__/
-
-.sql
-*.db
+enviroments/
+./TodoApp/*.sql
+./TodoApp/*.db

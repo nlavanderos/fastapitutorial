@@ -3,3 +3,8 @@ pydantic
 sqlalchemy
 passlib[bcrypt]
 python-jose[cryptography]
+aiofiles
+jinja2
+psycopg2-binary
+dotenv
+alembic
