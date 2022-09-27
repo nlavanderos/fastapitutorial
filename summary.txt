@@ -188,6 +188,6 @@ MIGRATIONS
 
 alembic init <foldername>
 alembic revision -m <message>
-alembic upgrade <revision #>
-alembic downgrade <revision #>
+alembic upgrade <revision #> revision is the commit example b3ac06482c17
+alembic downgrade <revision #> -1 for be past revision(version)
 
